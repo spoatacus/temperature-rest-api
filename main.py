@@ -1,12 +1,16 @@
 from flask import Flask, request, g, json, make_response
 import MySQLdb
+import ConfigParser
 
 app = Flask(__name__)
 
-DATABASE_HOST = '10.10.2.10'
-DATABASE_NAME = 'arduino_weather'
-DATABASE_USER = 'weather'
-DATABASE_PASSWORD = 'weather'
+config = ConfigParser.SafeConfigParser()
+config.read('main.cfg')
+
+DATABASE_HOST = config.get('database', 'host')
+DATABASE_NAME = config.get('database', 'name')
+DATABASE_USER = config.get('database', 'user')
+DATABASE_PASSWORD = config.get('database', 'password')
 
 
 def connect_db():
